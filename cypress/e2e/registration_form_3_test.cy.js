@@ -112,7 +112,7 @@ describe('2. Functional tests for registration form 3', () => {
         cy.go('back').url().should('contain', '/registration_form_3.html')
 
     })
-    it.only('Check submission for mandatory fields using Function', () => {
+    it('Check submission for mandatory fields using Function', () => {
         inputMandatoryData()
         //Click on Submit and check the url on next page
         cy.get('input[type="submit"]').should('be.visible').click()
@@ -128,10 +128,6 @@ describe('2. Functional tests for registration form 3', () => {
         cy.get('#name').type('Anita')
         cy.get('input[name="email"]').type('valid@email.com')
         cy.get('#country').select('Austria')
-        //cy.get('#city').children().should('have.length', 4)
         cy.get('#city').select('Salzburg')
-        //cy.contains('Date of registration').next().type('2024-01-05').should('have.value', '2024-01-05')
-        //cy.get('input[type="radio"]').eq(2).check().should('be.checked')
-        //cy.get('#birthday').first().type('2000-01-05').should('have.value', '2000-01-05')
         cy.get('[type="checkbox"]').eq(0).check()
 }
