@@ -52,7 +52,7 @@ describe('1. Visual tests for registration form 3', () => {
         cy.get('input[type="checkbox"]').should('have.length', 2)
         cy.get('input[type="checkbox"]').parent().should('contain', 'Accept our privacy policy')
         cy.get('input[type="checkbox"]').parent().get('a[href]').should('contain', 'Accept our cookie policy')
-        //check both checkboxes
+        //check both checkboxes at once
         cy.get('[type="checkbox"]').check()
         // check the link content and click it
         cy.get('button a').should('have.attr', 'href', 'cookiePolicy.html').click()
@@ -118,7 +118,19 @@ describe('2. Functional tests for registration form 3', () => {
         cy.get('input[type="submit"]').should('be.visible').click()
         cy.get('h1').should('have.text', 'Submission received')
     })
+    it('Check submission for mandatory email missing using Function', () => {
+        inputMandatoryData()
+        //clear email
+        cy.get('input[name="email"]').clear()
+        cy.get('#emailAlert').should('contain', 'Email is required')
+        cy.get('input[type="submit"]').should('be.disabled')
+    })
     it('Check submission for "add file" functionality', () => {
+        inputMandatoryData()
+        //load a file
+        cy.get('[type="file"]').selectFile('cypress/screenshots/Cars drop-down.png', {force: true})
+        cy.get('input[type="submit"]').should('be.visible').click()
+        cy.get('h1').should('have.text', 'Submission received')
 
     })
 })
